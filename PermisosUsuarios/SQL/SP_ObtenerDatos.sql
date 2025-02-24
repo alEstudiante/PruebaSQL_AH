@@ -1,6 +1,6 @@
 USE [ProyectoBD]
 GO
-/****** Object:  StoredProcedure [dbo].[ObtenerDatos]    Script Date: 23/02/2025 7:17:46 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[ObtenerDatos]    Script Date: 23/02/2025 8:46:02 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -62,7 +62,7 @@ BEGIN
 		SELECT c.FieldName, c.Operator, c.ConditionValue, c.Opening_Delimiter, C.Closing_Delimiter
 		FROM ConditionCodes c
 		JOIN UserConditionCodes cc ON c.ConditionCode = cc.ConditionCode
-		WHERE c.TableID = @TablaID;
+		WHERE c.TableID = @TablaID AND cc.UserID = @UserID;
 
 		OPEN condition_cursor;
 
@@ -87,7 +87,7 @@ BEGIN
     -- Construir la consulta final con las condiciones
     SET @SQL = 'SELECT * FROM ' + @TableName + ' WHERE 1=1' + @ConditionQuery;
     
-
+	SELECT @SQL
     -- Ejecutar la consulta dinámica
     EXEC sp_executesql @SQL;
 END;
