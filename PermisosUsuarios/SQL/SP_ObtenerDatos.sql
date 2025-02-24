@@ -87,7 +87,7 @@ BEGIN
     -- Construir la consulta final con las condiciones
     SET @SQL = 'SELECT * FROM ' + @TableName + ' WHERE 1=1' + @ConditionQuery;
     
-	SELECT @SQL
+	--SELECT @SQL
     -- Ejecutar la consulta dinámica
     EXEC sp_executesql @SQL;
 END;
